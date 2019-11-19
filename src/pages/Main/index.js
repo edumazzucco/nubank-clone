@@ -34,15 +34,21 @@ export default function Main() {
 
       if (translationY >= 100) {
         opened = true;
+      } else {
+        translateY.setValue(offset);
+        translateY.setOffset(0);
+        offset = 0;
       }
 
       Animated.timing(translateY, {
-        toValue: 380,
+        toValue: opened ? 380 : 0,
         duration: 200,
         useNativeDriver: true,
-      }).start();
-      // translateY.setOffset(offset);
-      // translateY.setValue(0);
+      }).start(() => {
+        offset = opened ? 380 : 0;
+        translateY.setOffset(offset);
+        translateY.setValue(0);
+      });
     }
   }
 
